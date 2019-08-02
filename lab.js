@@ -79,4 +79,13 @@ boardReady({device: 'o857'}, function (board) {
     writeSheetData(myData);
     document.getElementById('demo-area-01-show').innerHTML = (['現在時間<BR>',get_date("ymd"),'-',get_time("hms"),'<BR>溫度(C)/濕度(%)<BR>',dht1,dht2,'<BR>光感度<BR>',photocell_value].join(''));
   }, 1000);
+  document.getElementById('demo-area-05-btn1').addEventListener('click',function () {
+    if (_E9_9B_BB_E6_BA_90_E9_96_8B_E9_97_9C == 0) {
+      _E7_B9_BC_E9_9B_BB_E5_99_A8.on();
+      _E9_9B_BB_E6_BA_90_E9_96_8B_E9_97_9C = 1;
+    } else {
+      _E7_B9_BC_E9_9B_BB_E5_99_A8.off();
+      _E9_9B_BB_E6_BA_90_E9_96_8B_E9_97_9C = 0;
+    }
+  });
 });
