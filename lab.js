@@ -1,11 +1,16 @@
 var dht1;
+var ph;
+var power;
 var dht2;
 var dht;
 var matrix;
 var photocell;
 var photocell_value;
+var _E7_B9_BC_E9_9B_BB_E5_99_A8;
+var _E9_9B_BB_E6_BA_90_E9_96_8B_E9_97_9C;
 var temp;
 var myData;
+var myFirebase;
 
 function get_date(t) {
   var varDay = new Date(),
@@ -51,11 +56,15 @@ function get_time(t) {
 boardReady({device: 'o857'}, function (board) {
   board.samplingInterval = 1000;
   dht1 = 0;
+  ph = 0;
+  power = 0;
   dht2 = 0;
   dht = getDht(board, 11);
   matrix = getMax7219(board, 3, 5, 6);
   photocell = getPhotocell(board, 5);
   photocell_value = 0;
+  _E7_B9_BC_E9_9B_BB_E5_99_A8 = getLed(board, 10);
+  _E9_9B_BB_E6_BA_90_E9_96_8B_E9_97_9C = 0;
   temp = new Firebase('https://youoktemp.firebaseio.com/');
   dht.read(function(evt){
     dht1 = dht.temperature;
@@ -77,7 +86,15 @@ boardReady({device: 'o857'}, function (board) {
     myData.column3 = dht2;
     myData.column4 = photocell_value;
     writeSheetData(myData);
-    document.getElementById('demo-area-01-show').innerHTML = (['現在時間<BR>',get_date("ymd"),'-',get_time("hms"),'<BR>溫度(C)/濕度(%)<BR>',dht1,dht2,'<BR>光感度<BR>',photocell_value].join(''));
+    document.getElementById('demo-area-01-show').innerHTML = (['現在時間<BR>',get_date("ymd"),'-',get_time("hms"),'<BR>溫度(C)/濕度(%)<BR>',dht1,'/',dht2,'<BR>光感度<BR>',photocell_value].join(''));
+    myFirebase.set({});
+    temp.push({
+      temp: dht1,
+      hum: dht2,
+      photocell: photocell_value,
+      power: "",
+      ph: ""
+    });
   }, 1000);
   document.getElementById('demo-area-05-btn1').addEventListener('click',function () {
     if (_E9_9B_BB_E6_BA_90_E9_96_8B_E9_97_9C == 0) {
