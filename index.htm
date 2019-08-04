@@ -109,7 +109,7 @@ boardReady({device: 'o857'}, function (board) {
     myData.column5 = ph;
     myData.column6 = power;
     writeSheetData(myData);
-    document.getElementById('demo-area-01-show').innerHTML = ([get_date("ymd"),'-',get_time("hms")].join(''));
+    document.getElementById('demo-area-01-show').innerHTML = (['現在時間<BR>',get_date("ymd"),'-',get_time("hms"),'<BR>溫度(C)/濕度(%)<BR>',dht1,'/',dht2,'<BR>光感度:',photocell_value,'<BR>PH 值:',ph,'<BR>啟動抽水馬達:',power].join(''));
 	document.getElementById('demo-area-02-show').innerHTML = ([dht1,'/',dht2].join(''));
 	document.getElementById('demo-area-03-show').innerHTML = ([photocell_value].join(''));
 	document.getElementById('demo-area-04-show').innerHTML = ([ph].join(''));
